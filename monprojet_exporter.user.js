@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         SGDF - Export Participants monprojet
 // @namespace    http://tampermonkey.net/
-// @version      1.8
-// @description  Exporte la liste des participants d'un camp en CSV
+// @version      1.9
+// @description  Exporte la liste des participants et du staff d'un camp en CSV (progression mise à jour après extraction de chaque camp)
 // @author       Clément Truillet
 // @match        https://monprojet.sgdf.fr/*
 // @updateURL    https://raw.githubusercontent.com/ctruillet/sgdf/main/monprojet_exporter.user.js
@@ -263,6 +263,8 @@
 
             const prenom = String(adh.prenom || "").trim().toUpperCase();
             const nom = String(adh.nom || "").trim().toUpperCase();
+            const email = String(adh.email || "").trim();
+            const telephone = String(adh.telephonePortable || "").trim();
 
             if (!prenom || !nom) return;
 
@@ -283,6 +285,8 @@
                     prenom: prenom,
                     nom: nom,
                     dateNaissance: dateFormatee,
+                    email: email,
+                    telephone: telephone,
                     idCamp: idCamp
                 });
             }
@@ -357,10 +361,10 @@
             }
 
             let csvContent = "\uFEFF"; // BOM UTF-8
-            csvContent += "Prénom;Nom;Date de Naissance;ID Camp\n";
+            csvContent += "Prénom;Nom;Date de Naissance;email;telephone;ID Camp\n";
 
             data.forEach(row => {
-                csvContent += `"${row.prenom}";"${row.nom}";"${row.dateNaissance}";"${row.idCamp}"\n`;
+                csvContent += `"${row.prenom}";"${row.nom}";"${row.dateNaissance}";"${row.email}";"${row.telephone}";"${row.idCamp}"\n`;
             });
 
             preparedCsvBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
