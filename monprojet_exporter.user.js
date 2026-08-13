@@ -2,7 +2,7 @@
 // @name         SGDF - Export Participants monprojet
 // @namespace    http://tampermonkey.net/
 // @version      1.8
-// @description  Exporte la liste des participants et du staff d'un camp en CSV (progression mise à jour après extraction de chaque camp)
+// @description  Exporte la liste des participants d'un camp en CSV
 // @author       Clément Truillet
 // @match        https://monprojet.sgdf.fr/*
 // @updateURL    https://raw.githubusercontent.com/ctruillet/sgdf/main/monprojet_exporter.user.js
